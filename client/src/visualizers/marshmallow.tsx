@@ -14,21 +14,24 @@ export const marshmallowVisualizer = new Visualizer(
 
 
     const values = analyzer.getValue();
-    const rgb1 = Math.floor(Math.random() * 265);
-    const rgb2 = Math.floor(Math.random() * 265);
-    const rgb3 = Math.floor(Math.random() * 265);
+    
     p5.background(0, 0, 0, 255);
-    p5.fill(rgb1, rgb2, rgb3);
+    
     p5.noStroke();   
     p5.beginShape();
  
 
-    p5.beginShape();
-    for (let i = 0; i < values.length; i++) {
+    for (let i = 0; i < 3600; i++) {
       const amplitude = values[i] as number;
-      const x = p5.map(i, 0, values.length - 1, 0, width);
-      const y = height / 2 + amplitude * height;
-      p5.vertex(x, y);
+      p5.stroke(1000);
+      let r = p5.map(values[i] as number, 0, 1, 100, 1000);
+      const rgb1 = Math.cos(i) * 265;
+      const rgb2 = Math.sin(i) * 265;
+      const rgb3 = i;
+      p5.fill(rgb1, rgb2, rgb3);
+      let x = r * Math.cos(i);
+      let y = r * Math.sin(i);
+      p5.vertex(x + width/2, y + height/2);
     }
     p5.endShape();
   },
