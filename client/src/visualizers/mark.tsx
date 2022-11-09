@@ -25,9 +25,9 @@ export const terrainVisualizer = new Visualizer(
     for (let i = 0; i < values.length; i++) {
       const amplitude = values[i] as number;
       // p5.strokeWeight(Math.abs(amplitude) * 350 + (dim * 0.01));
-      const x = p5.map(i, 0, (values.length-1), 0, width*2);
+      const x = p5.map(i, 0, (values.length-1), width, width*2);
       const y = height/2 + amplitude * height;
-      p5.stroke(100+y*100, 10, 10, 255);
+      p5.stroke(127+y*100, 10, 10, 255);
       p5.strokeWeight(Math.abs(amplitude)*5 + (dim * 0.001));
       p5.line(x, height*0.95, x*0.35, y*0.6);
     }
