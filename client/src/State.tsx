@@ -6,6 +6,7 @@ import { PianoInstrument } from './instruments/Piano';
 import { WaveformVisualizer } from './visualizers/Waveform';
 import { Jiji14Visualizer } from './visualizers/Jiji14';
 import { terrainVisualizer } from './visualizers/mark';
+import { barGraphVisualizer } from './visualizers/arianna-y';
 
 
 /** ------------------------------------------------------------------------ **
@@ -23,7 +24,7 @@ const instruments = List([PianoInstrument]);       // similar to Instrument[]
  * Start with the default waveform visualizer.
  * Add your visualizers to this list.
  */
-const visualizers = List([WaveformVisualizer, Jiji14Visualizer, terrainVisualizer]);    // similar to Visualizer[]
+const visualizers = List([WaveformVisualizer, Jiji14Visualizer, terrainVisualizer, barGraphVisualizer]);    // similar to Visualizer[]
 
 
 /**
