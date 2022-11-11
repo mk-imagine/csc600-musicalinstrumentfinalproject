@@ -7,6 +7,7 @@ import { WaveformVisualizer } from './visualizers/Waveform';
 import { Jiji14Visualizer } from './visualizers/Jiji14';
 import { terrainVisualizer } from './visualizers/mark';
 import { marshmallowVisualizer } from './visualizers/marshmallow';
+import { barGraphVisualizer } from './visualizers/arianna-y';
 
 /** ------------------------------------------------------------------------ **
  * The entire application state is stored in AppState.
@@ -23,8 +24,7 @@ const instruments = List([PianoInstrument]);       // similar to Instrument[]
  * Start with the default waveform visualizer.
  * Add your visualizers to this list.
  */
-const visualizers = List([WaveformVisualizer, Jiji14Visualizer, terrainVisualizer, marshmallowVisualizer]);    // similar to Visualizer[]
-
+const visualizers = List([WaveformVisualizer, Jiji14Visualizer, terrainVisualizer, marshmallowVisualizer, barGraphVisualizer]);    // similar to Visualizer[]
 
 /**
  * The default application state contains a list of instruments and a list of visualizers.
