@@ -6,6 +6,7 @@ import React from 'react';
 
 // project imports
 import { Instrument, InstrumentProps } from '../Instruments';
+import Oscillators from './Oscillators';
 
 /** ------------------------------------------------------------------------ **
  * Contains implementation of components for Piano.
@@ -88,20 +89,6 @@ function PianoKeyWithoutJSX({
   );
 }
 
-function PianoType({ title, onClick, active }: any): JSX.Element {
-  return (
-    <div
-      onClick={onClick}
-      className={classNames('dim pointer ph2 pv1 ba mr2 br1 fw7 bw1', {
-        'b--black black': active,
-        'gray b--light-gray': !active,
-      })}
-    >
-      {title}
-    </div>
-  );
-}
-
 function Piano({ synth, setSynth }: InstrumentProps): JSX.Element {
   const keys = List([
     { note: 'C', idx: 0 },
@@ -117,29 +104,6 @@ function Piano({ synth, setSynth }: InstrumentProps): JSX.Element {
     { note: 'Bb', idx: 5.5 },
     { note: 'B', idx: 6 },
   ]);
-
-  const setOscillator = (newType: Tone.ToneOscillatorType) => {
-    setSynth(oldSynth => {
-      oldSynth.disconnect();
-
-      return new Tone.Synth({
-        oscillator: { type: newType } as Tone.OmniOscillatorOptions,
-      }).toDestination();
-    });
-  };
-
-  const oscillators: List<OscillatorType> = List([
-    'sine',
-    'sawtooth',
-    'square',
-    'triangle',
-    'fmsine',
-    'fmsawtooth',
-    'fmtriangle',
-    'amsine',
-    'amsawtooth',
-    'amtriangle',
-  ]) as List<OscillatorType>;
 
   return (
     <div className="pv4">
@@ -161,16 +125,10 @@ function Piano({ synth, setSynth }: InstrumentProps): JSX.Element {
           }),
         )}
       </div>
-      <div className={'pl4 pt4 flex'}>
-        {oscillators.map(o => (
-          <PianoType
-            key={o}
-            title={o}
-            onClick={() => setOscillator(o)}
-            active={synth?.oscillator.type === o}
-          />
-        ))}
-      </div>
+      <Oscillators 
+        synth={synth}
+        setSynth={setSynth}
+      />
     </div>
   );
 }
