@@ -13,7 +13,7 @@ interface OscillatorsProps {
     setSynth: (f: (oldSynth: Tone.Synth) => Tone.Synth) => void;
 }
 
-function PianoType({ title, onClick, active }: any): JSX.Element {
+function OscillatorType({ title, onClick, active }: any): JSX.Element {
     return (
       <div
         onClick={onClick}
@@ -55,7 +55,7 @@ function Oscillators({ synth, setSynth }: OscillatorsProps):JSX.Element {
     return (
         <div className={'pl4 pt4 flex'}>
         {oscillators.map(o => (
-          <PianoType
+          <OscillatorType
             key={o}
             title={o}
             onClick={() => setOscillator(o)}
