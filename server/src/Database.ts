@@ -32,7 +32,9 @@ export class DB {
   private static async cleanupDB(): Promise<void> {}
 
   private static async initializeDB(): Promise<Database> {
+    console.log("********** Inside initialize DB ***********");
     const existsAlready = await DB.exists();
+    console.log("DB exists: ", existsAlready);
     const db = new sqlite3.Database(DB.DB_PATH);
 
     if (!existsAlready && !this.hasInitialized) {
