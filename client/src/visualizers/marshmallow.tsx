@@ -17,7 +17,8 @@ export const marshmallowVisualizer = new Visualizer(
     
     p5.background(0, 0, 0, 255);
     
-    p5.noStroke();   
+    p5.noStroke();  
+    //p5.fill 
     p5.beginShape();
  
 
@@ -31,7 +32,7 @@ export const marshmallowVisualizer = new Visualizer(
       p5.fill(rgb1, rgb2, rgb3);
       let x = r * Math.cos(i);
       let y = r * Math.sin(i);
-      p5.vertex(x + width/2, y + height/2);
+      p5.vertex( x + width/2 - 100, y + height/2);
     }
     p5.endShape();
   },

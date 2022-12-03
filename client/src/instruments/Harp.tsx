@@ -2,11 +2,13 @@
 import * as Tone from 'tone';
 import classNames from 'classnames';
 import { is, List, Range } from 'immutable';
-
+import {useEffect} from 'react';
 
 // project imports
 import { Instrument, InstrumentProps } from '../Instruments';
 import Oscillators from './Oscillators';
+import {RecursivePartial} from "tone/Tone/core/util/Interface";
+import {OmniOscillatorOptions} from "tone/Tone/source/oscillator/OscillatorInterface";
 
 
 /** ------------------------------------------------------------------------ **
@@ -23,6 +25,7 @@ import Oscillators from './Oscillators';
     distanceLeft: number; 
     top: number;
   }
+
 
 export function HarpStrings({
     note, 
@@ -58,6 +61,7 @@ export function HarpStrings({
 }
 
 
+
 function Harp({synth, setSynth}: InstrumentProps): JSX.Element {
   const keys = List([
     { note: 'C', idx: 0 },
@@ -68,6 +72,36 @@ function Harp({synth, setSynth}: InstrumentProps): JSX.Element {
     { note: 'A', idx: 5 },
     { note: 'B', idx: 6 },
   ]);
+
+  //default sound
+  const setOscillator = () => {
+    setSynth(oldSynth => {
+      oldSynth.disconnect();
+      return new Tone.MembraneSynth ({
+        "volume": 3,
+        "detune": 10,
+        "envelope": {
+          "attack": 1,
+          "attackCurve": "exponential",
+          "decay": 0.8,
+          "decayCurve": "linear",
+          "release": 1,
+          "releaseCurve": "linear",
+          "sustain": 0.8
+        },
+        "oscillator": {
+          "partialCount": 7,
+          "partials": [
+             1, 0.1, 0.01, .000001, .000000001 
+          ],
+          
+      } as RecursivePartial<OmniOscillatorOptions>,
+      }).toDestination();
+    });
+  };
+
+
+  useEffect(setOscillator, [setSynth]);
   
   return (
     <div className="pv4">
@@ -105,5 +139,8 @@ function Harp({synth, setSynth}: InstrumentProps): JSX.Element {
     </div>
   );
 }
+
+
+
 
 export const HarpInstrument = new Instrument('Harp', Harp);
