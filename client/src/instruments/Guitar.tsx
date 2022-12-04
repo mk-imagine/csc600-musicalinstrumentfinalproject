@@ -1,96 +1,117 @@
-// 3rd party library imports
-import * as Tone from 'tone';
-import classNames from 'classnames';
-import { List, Range } from 'immutable';
+import * as Tone from "tone";
+import classNames from "classnames";
+import { List, Range } from "immutable";
+import './Guitar.css';
 
 // project imports
-import { Instrument, InstrumentProps } from '../Instruments';
+import { Instrument, InstrumentProps } from "../Instruments";
 import Oscillators from './Oscillators';
 
-/** ------------------------------------------------------------------------ **
- * Contains implementation of components for Piano.
- ** ------------------------------------------------------------------------ */
-
-interface GuitarStringProps {
-  note: string; // C, Db, D, Eb, E, F, Gb, G, Ab, A, Bb, B
-  duration?: string;
-  synth?: Tone.Synth; // Contains library code for making sound
-  minor?: boolean; // True if minor key, false if major key
-  octave: number;
-  index: number; // octave + index together give a location for the piano key
-}
-
-export function GuitarString({
-  note,
-  synth,
-  minor,
-  index,
-}: GuitarStringProps): JSX.Element {
-  /**
-   * This React component corresponds to either a major or minor key in the piano.
-   * See `PianoKeyWithoutJSX` for the React component without JSX.
-   */
-  return (
-    // Observations:
-    // 1. The JSX refers to the HTML-looking syntax within TypeScript.
-    // 2. The JSX will be **transpiled** into the corresponding `React.createElement` library call.
-    // 3. The curly braces `{` and `}` should remind you of string interpolation.
-
-    <div
-      onMouseDown={() => synth?.triggerAttack(`${note}`)} // Question: what is `onMouseDown`?
-      onMouseUp={() => synth?.triggerRelease('+0.25')} // Question: what is `onMouseUp`?
-      className={classNames('ba pointer absolute dim', {
-        // 'bg-black black h3': minor, // minor keys are black
-        'bg-black white h3': minor, // minor keys are black
-        'black bg-white h4': !minor, // major keys are white
-      })}
-      style={{
-        // CSS
-        top: 0,
-        left: `${index * 2}rem`,
-        zIndex: minor ? 1 : 0,
-        width: minor ? '1.5rem' : '2rem',
-        marginLeft: minor ? '0.25rem' : 0,
-      }}
-    ></div>
-  );
-}
-
 function Guitar({ synth, setSynth }: InstrumentProps): JSX.Element {
-  const keys = List([
-    { note: 'C', idx: 0 },
-    { note: 'Db', idx: 0.5 },
-    { note: 'D', idx: 1 },
-    { note: 'Eb', idx: 1.5 },
-    { note: 'E', idx: 2 },
-    { note: 'F', idx: 3 },
-    { note: 'Gb', idx: 3.5 },
-    { note: 'G', idx: 4 },
-    { note: 'Ab', idx: 4.5 },
-    { note: 'A', idx: 5 },
-    { note: 'Bb', idx: 5.5 },
-    { note: 'B', idx: 6 },
-  ]);
+  const playNote = (note: string, octave: number) => {
+    synth?.triggerAttackRelease(`${note}${octave}`, "0.75");
+  };
 
   return (
     <div className="pv4">
-      <div className="relative dib h4 w-100 ml4">
-        {Range(2, 7).map(octave =>
-          keys.map(key => {
-            const isMinor = key.note.indexOf('b') !== -1;
-            const note = `${key.note}${octave}`;
-            return (
-              <GuitarString
-                key={note} //react key
-                note={note}
-                synth={synth}
-                minor={isMinor}
-                octave={octave}
-                index={(octave - 2) * 7 + key.idx}
-              />
-            );
-          }),
-        )}
+      <div id="guitar">
+        <div className="neck">
+          <div className="frets">
+            <div className="head" />
+            <div className="fret" />
+            <div className="fret">
+              <div className="dot" />
+            </div>
+            <div className="fret"/>
+            <div className="fret">
+              <div className="dot" />
+            </div>
+            <div className="fret" />
+            <div className="fret">
+              <div className="dot" />
+            </div>
+            <div className="fret" />
+            <div className="fret">
+              <div className="dot" />
+            </div>
+            <div className="fret" />
+            <div className="fret" />
+          </div>
+          <div className="strings">
+            <div className="string">
+              <div className="opennote" onMouseDown={() => playNote("E", 4)} />
+              <div className="note" onMouseDown={() => playNote("F", 4)} />
+              <div className="note" onMouseDown={() => playNote("Gb", 4)} />
+              <div className="note" onMouseDown={() => playNote("G", 4)} />
+              <div className="note" onMouseDown={() => playNote("Ab", 4)} />
+              <div className="note" onMouseDown={() => playNote("A", 4)} />
+              <div className="note" onMouseDown={() => playNote("Bb", 4)} />
+              <div className="note" onMouseDown={() => playNote("B", 4)} />
+              <div className="note" onMouseDown={() => playNote("C", 5)} />
+              <div className="note" onMouseDown={() => playNote("Db", 5)} />
+            </div>
+            <div className="string">
+              <div className="opennote" onMouseDown={() => playNote("B", 3)} />
+              <div className="note" onMouseDown={() => playNote("C", 4)} />
+              <div className="note" onMouseDown={() => playNote("Db", 4)} />
+              <div className="note" onMouseDown={() => playNote("D", 4)} />
+              <div className="note" onMouseDown={() => playNote("Eb", 4)} />
+              <div className="note" onMouseDown={() => playNote("E", 4)} />
+              <div className="note" onMouseDown={() => playNote("F", 4)} />
+              <div className="note" onMouseDown={() => playNote("Gb", 4)} />
+              <div className="note" onMouseDown={() => playNote("G", 4)} />
+              <div className="note" onMouseDown={() => playNote("Ab", 4)} />
+            </div>
+            <div className="string">
+              <div className="opennote" onMouseDown={() => playNote("G", 3)} />
+              <div className="note" onMouseDown={() => playNote("Ab", 3)} />
+              <div className="note" onMouseDown={() => playNote("A", 3)} />
+              <div className="note" onMouseDown={() => playNote("Bb", 3)} />
+              <div className="note" onMouseDown={() => playNote("B", 3)} />
+              <div className="note" onMouseDown={() => playNote("C", 4)} />
+              <div className="note" onMouseDown={() => playNote("Db", 4)} />
+              <div className="note" onMouseDown={() => playNote("D", 4)} />
+              <div className="note" onMouseDown={() => playNote("Eb", 4)} />
+              <div className="note" onMouseDown={() => playNote("E", 4)} />
+            </div>
+            <div className="string">
+              <div className="opennote" onMouseDown={() => playNote("D", 3)} />
+              <div className="note" onMouseDown={() => playNote("Eb", 3)} />
+              <div className="note" onMouseDown={() => playNote("E", 3)} />
+              <div className="note" onMouseDown={() => playNote("F", 3)} />
+              <div className="note" onMouseDown={() => playNote("Gb", 3)} />
+              <div className="note" onMouseDown={() => playNote("G", 3)} />
+              <div className="note" onMouseDown={() => playNote("Ab", 3)} />
+              <div className="note" onMouseDown={() => playNote("A", 3)} />
+              <div className="note" onMouseDown={() => playNote("Bb", 3)} />
+              <div className="note" onMouseDown={() => playNote("B", 3)} />
+            </div>
+            <div className="string">
+              <div className="opennote" onMouseDown={() => playNote("A", 2)} />
+              <div className="note" onMouseDown={() => playNote("Bb", 2)} />
+              <div className="note" onMouseDown={() => playNote("B", 2)} />
+              <div className="note" onMouseDown={() => playNote("C", 3)} />
+              <div className="note" onMouseDown={() => playNote("Db", 3)} />
+              <div className="note" onMouseDown={() => playNote("D", 3)} />
+              <div className="note" onMouseDown={() => playNote("Eb", 3)} />
+              <div className="note" onMouseDown={() => playNote("E", 3)} />
+              <div className="note" onMouseDown={() => playNote("F", 3)} />
+              <div className="note" onMouseDown={() => playNote("Gb", 3)} />
+            </div>
+            <div className="string">
+              <div className="opennote" onMouseDown={() => playNote("E", 2)} />
+              <div className="note" onMouseDown={() => playNote("F", 2)} />
+              <div className="note" onMouseDown={() => playNote("Gb", 2)} />
+              <div className="note" onMouseDown={() => playNote("G", 2)} />
+              <div className="note" onMouseDown={() => playNote("Ab", 2)} />
+              <div className="note" onMouseDown={() => playNote("A", 2)} />
+              <div className="note" onMouseDown={() => playNote("Bb", 2)} />
+              <div className="note" onMouseDown={() => playNote("B", 2)} />
+              <div className="note" onMouseDown={() => playNote("C", 3)} />
+              <div className="note" onMouseDown={() => playNote("Db", 3)} />
+            </div>
+          </div>
+        </div>
       </div>
       <Oscillators 
         synth={synth}
@@ -100,4 +121,4 @@ function Guitar({ synth, setSynth }: InstrumentProps): JSX.Element {
   );
 }
 
-export const GuitarInstrument = new Instrument('Guitar', Guitar);
+export const GuitarInstrument = new Instrument("Guitar", Guitar);
