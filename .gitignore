@@ -1,4 +1,3 @@
 .DS_Store
 .conda_config
 node_modules
-package-lock.json
