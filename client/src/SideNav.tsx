@@ -8,6 +8,9 @@ import {
   RadioButtonChecked20,
   Music20,
 } from '@carbon/icons-react';
+import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
+import Popover from 'react-bootstrap/Popover';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 // project imports
 import { DispatchAction } from './Reducer';
@@ -54,15 +57,14 @@ export function SideNav({ state, dispatch }: SideNavProps): JSX.Element {
   */
 
   return (
-    <div className="absolute top-0 left-0 bottom-0 w5 z-1 shadow-1 bg-white flex flex-column">
+    <div className="absolute top-0 left-0 bottom-0 w-25 z-1 shadow-1 bg-white flex flex-column">
       <div className="h3 fw7 f5 flex items-center pl3 bb b--light-gray">
-        Nameless App
+        Chimek Team App
       </div>
       <div className="flex-auto">
         <InstrumentsNav state={state} dispatch={dispatch} />
         <VisualizersNav state={state} dispatch={dispatch} />
         <SongsNav state={state} dispatch={dispatch} />
-        <SongsManage state={state} dispatch={dispatch} />
       </div>
     </div>
   );
@@ -158,54 +160,59 @@ function SongsNav({ state, dispatch }: SideNavProps): JSX.Element {
   */
 
   const songs: List<any> = state.get('songs', List());
+  const [search, setSearchTerms] = React.useState("");
+
+  const find = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchTerms(event.target.value);
+  }
+
+  const renderTooltip = ( title: string, genre: string, year: string, author: string ) => (
+    <Popover id="popover-basic">
+      <Popover.Header as="h3">{title}</Popover.Header>
+      <Popover.Body>
+        <strong>Genre: </strong>{genre}<br />
+        <strong>Publish Date: </strong>{year}<br />
+        <strong>Songwriter(s): </strong>{author}
+      </Popover.Body>
+    </Popover>
+  );
+
   return (
     <Section title="Playlist">
-      {songs.map(song => (
-        <div
-          key={song.get('id')}
-          className="f6 pointer underline flex items-center no-underline i dim"
-          onClick={() =>
-            dispatch(new DispatchAction('PLAY_SONG', { id: song.get('id') }))
-          }
-        >
-          <Music20 className="mr1" />
-          {song.get('songTitle')}
-        </div>
-      ))}
-    </Section>
-  );
-}
-
-function SongsManage({ state, dispatch }: SideNavProps): JSX.Element {
-  /** 
-   * 
-   *  SongsNav
-   *  |-----------------|
-   *  | Section         |
-   *  | |-------------| |
-   *  | | Music20     | |
-   *  | |-------------| | 
-   *  | | Music20     | |
-   *  | |-------------| |
-   *  |      ...        |
-   *  |-----------------|
-  */
-
-  const songs: List<any> = state.get('songs', List());
-  return (
-    <Section title="Manage Songs">
-      {songs.map(song => (
-        <div
-          key={song.get('id')}
-          className="f6 pointer underline flex items-center no-underline i dim"
-          onClick={() =>
-            dispatch(new DispatchAction('PLAY_SONG', { id: song.get('id') }))
-          }
-        >
-          <Music20 className="mr1" />
-          {song.get('songTitle')}
-        </div>
-      ))}
+      <div>
+        <input
+          type="text"
+          value={search}
+          onChange={find}
+          placeholder="Enter your search here"
+        />
+      </div>
+      <br />
+      <div className="dt">
+        {songs.filter(song => song.get("songTitle").toLowerCase().includes(search.toLowerCase())
+                          ||  song.get("writtenBy").toLowerCase().includes(search.toLowerCase())
+                          ||  song.get("genre").toLowerCase().includes(search.toLowerCase()))
+                              .map(song => {
+                                return (
+                                  <OverlayTrigger
+                                    placement="auto"
+                                    containerPadding={20}
+                                    overlay={renderTooltip(song.get("songTitle"), song.get("genre"), song.get("pubYear"), song.get("writtenBy"))}
+                                  >
+                                    <div
+                                      key={song.get("id")}
+                                      className="f6 pointer underline flex items-center no-underline i dim"
+                                      onClick={() =>
+                                        dispatch(new DispatchAction("PLAY_SONG", { id: song.get("id") }))
+                                      }
+                                    >
+                                      <Music20 className="mr1" />
+                                      {song.get("songTitle")}
+                                    </div>
+                                  </OverlayTrigger>
+                                );
+                              })}
+      </div>
     </Section>
   );
 }
