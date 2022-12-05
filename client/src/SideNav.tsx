@@ -57,7 +57,7 @@ export function SideNav({ state, dispatch }: SideNavProps): JSX.Element {
   */
 
   return (
-    <div className="absolute top-0 left-0 bottom-0 w-25 z-1 shadow-1 bg-white flex flex-column">
+    <div className="absolute top-0 left-0 bottom-0 w5 z-1 shadow-1 bg-white flex flex-column">
       <div className="h3 fw7 f5 flex items-center pl3 bb b--light-gray">
         Chimek Team App
       </div>
@@ -191,13 +191,17 @@ function SongsNav({ state, dispatch }: SideNavProps): JSX.Element {
       <div className="dt">
         {songs.filter(song => song.get("songTitle").toLowerCase().includes(search.toLowerCase())
                           ||  song.get("writtenBy").toLowerCase().includes(search.toLowerCase())
-                          ||  song.get("genre").toLowerCase().includes(search.toLowerCase()))
+                          ||  song.get("genre").toLowerCase().includes(search.toLowerCase())
+                          ||  song.get("pubYear").includes(search.toLowerCase()))
                               .map(song => {
                                 return (
                                   <OverlayTrigger
                                     placement="auto"
                                     containerPadding={20}
-                                    overlay={renderTooltip(song.get("songTitle"), song.get("genre"), song.get("pubYear"), song.get("writtenBy"))}
+                                    overlay={renderTooltip(song.get("songTitle"), 
+                                      song.get("genre"), 
+                                      song.get("pubYear"), 
+                                      song.get("writtenBy"))}
                                   >
                                     <div
                                       key={song.get("id")}
