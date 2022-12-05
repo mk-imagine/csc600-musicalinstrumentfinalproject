@@ -161,6 +161,7 @@ function SongsNav({ state, dispatch }: SideNavProps): JSX.Element {
 
   const songs: List<any> = state.get('songs', List());
   const [search, setSearchTerms] = React.useState("");
+  const activeInstrument = state.get('instrument')?.name;
 
   const find = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerms(event.target.value);

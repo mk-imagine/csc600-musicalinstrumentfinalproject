@@ -10,6 +10,16 @@ import { AppState } from './State';
  * Contains base implementation of an Instrument.
  ** ------------------------------------------------------------------------ */
 
+// type SoundProc = Tone.Synth | Tone.Sampler;
+
+// export interface InstrumentProps {
+//   state: AppState;
+//   dispatch: React.Dispatch<DispatchAction>;
+//   name: string;
+//   synth: SoundProc;
+//   setSynth: (f: (oldSynth: SoundProc) => SoundProc) => void;
+// }
+
 export interface InstrumentProps {
   state: AppState;
   dispatch: React.Dispatch<DispatchAction>;

@@ -4,23 +4,42 @@
 // project imports
 import { Instrument, InstrumentProps } from "../Instruments";
 import Oscillators from './Oscillators';
-// import * as Tone from 'tone';
+import * as Tone from 'tone';
 import './mkim797.css';
 
 function Guitar({ synth, setSynth }: InstrumentProps): JSX.Element {
+  const sampler = new Tone.Sampler({
+    urls: {
+      A3: "A1.mp3",
+      A4: "A2.mp3",
+    },
+    baseUrl: "https://tonejs.github.io/audio/casio/"
+  }).toDestination();
   // const sampler = new Tone.Sampler({
   //   urls: {
-  //     E2: "6th_String_E_64kb.mp3",
-  //     E4: "1st_String_E_64kb.mp3",
+  //     A3: "A1.mp3",
+  //     A4: "A2.mp3",
   //   },
-  //   baseUrl: "https://localhost:3000/src/instruments/GuitarSounds/",
-  //   onload: () => {
-  //     sampler.triggerAttackRelease("E4", 0.75);
-  //   }
+  //   baseUrl: "https://tonejs.github.io/audio/casio/"
+  // }).toDestination();
+  // const sampler = new Tone.Sampler({
+  //   urls: {
+  //     E2: "e1.mp3",
+  //     F2: "e2.mp3",
+  //     // Gb2: "e3.mp3",
+  //     G2: "e4.mp3",
+  //     // Ab2: "e5.mp3",
+  //     A2: "a0.mp3",
+  //     D3: "d0.mp3",
+  //     G3: "g0.mp3",
+  //     B3: "h0.mp3",
+  //     E4: "f0.mp3",
+  //   },
+  //   baseUrl: "https://www.musicca.com/lydfiler/guitar/steel/"
   // }).toDestination();
 
   const playNote = (note: string, octave: number) => {
-    synth?.triggerAttackRelease(`${note}${octave}`, "0.75");
+    sampler.triggerAttackRelease(`${note}${octave}`, 8);
   };
 
   return (
@@ -50,7 +69,7 @@ function Guitar({ synth, setSynth }: InstrumentProps): JSX.Element {
           </div>
           <div className="strings">
             <div className="string">
-              <div className="opennote" onMouseDown={() => playNote("E", 4)} />
+              <div className="opennote" onMouseDown={() => sampler?.triggerAttack(`E4`)} />
               <div className="note" onMouseDown={() => playNote("F", 4)} />
               <div className="note" onMouseDown={() => playNote("Gb", 4)} />
               <div className="note" onMouseDown={() => playNote("G", 4)} />
@@ -124,10 +143,10 @@ function Guitar({ synth, setSynth }: InstrumentProps): JSX.Element {
           </div>
         </div>
       </div>
-      <Oscillators 
+      {/* <Oscillators 
         synth={synth}
         setSynth={setSynth}
-      />
+      /> */}
     </div>
   );
 }
