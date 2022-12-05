@@ -4,9 +4,21 @@
 // project imports
 import { Instrument, InstrumentProps } from "../Instruments";
 import Oscillators from './Oscillators';
+// import * as Tone from 'tone';
 import './mkim797.css';
 
 function Guitar({ synth, setSynth }: InstrumentProps): JSX.Element {
+  // const sampler = new Tone.Sampler({
+  //   urls: {
+  //     E2: "6th_String_E_64kb.mp3",
+  //     E4: "1st_String_E_64kb.mp3",
+  //   },
+  //   baseUrl: "https://localhost:3000/src/instruments/GuitarSounds/",
+  //   onload: () => {
+  //     sampler.triggerAttackRelease("E4", 0.75);
+  //   }
+  // }).toDestination();
+
   const playNote = (note: string, octave: number) => {
     synth?.triggerAttackRelease(`${note}${octave}`, "0.75");
   };
