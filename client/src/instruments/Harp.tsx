@@ -78,8 +78,8 @@ function Harp({synth, setSynth}: InstrumentProps): JSX.Element {
     setSynth(oldSynth => {
       oldSynth.disconnect();
       return new Tone.MembraneSynth ({
-        "volume": 3,
-        "detune": 10,
+        "volume": 2,
+        "detune": 9,
         "envelope": {
           "attack": 1,
           "attackCurve": "exponential",
@@ -100,17 +100,13 @@ function Harp({synth, setSynth}: InstrumentProps): JSX.Element {
     });
   };
 
-
+// set the sysnth to defult 
   useEffect(setOscillator, [setSynth]);
   
   return (
     <div className="pv4">
-        <div>
-       <Oscillators 
-                synth={synth}
-                setSynth={setSynth}
-            /></div>
-    
+      
+       
       <div className="relative dib h4 w-100 ml4">
          {Range(2, 7).map(octave =>
           keys.map(key => {
