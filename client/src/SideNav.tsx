@@ -62,6 +62,7 @@ export function SideNav({ state, dispatch }: SideNavProps): JSX.Element {
         <InstrumentsNav state={state} dispatch={dispatch} />
         <VisualizersNav state={state} dispatch={dispatch} />
         <SongsNav state={state} dispatch={dispatch} />
+        <SongsManage state={state} dispatch={dispatch} />
       </div>
     </div>
   );
@@ -159,6 +160,40 @@ function SongsNav({ state, dispatch }: SideNavProps): JSX.Element {
   const songs: List<any> = state.get('songs', List());
   return (
     <Section title="Playlist">
+      {songs.map(song => (
+        <div
+          key={song.get('id')}
+          className="f6 pointer underline flex items-center no-underline i dim"
+          onClick={() =>
+            dispatch(new DispatchAction('PLAY_SONG', { id: song.get('id') }))
+          }
+        >
+          <Music20 className="mr1" />
+          {song.get('songTitle')}
+        </div>
+      ))}
+    </Section>
+  );
+}
+
+function SongsManage({ state, dispatch }: SideNavProps): JSX.Element {
+  /** 
+   * 
+   *  SongsNav
+   *  |-----------------|
+   *  | Section         |
+   *  | |-------------| |
+   *  | | Music20     | |
+   *  | |-------------| | 
+   *  | | Music20     | |
+   *  | |-------------| |
+   *  |      ...        |
+   *  |-----------------|
+  */
+
+  const songs: List<any> = state.get('songs', List());
+  return (
+    <Section title="Manage Songs">
       {songs.map(song => (
         <div
           key={song.get('id')}

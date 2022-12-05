@@ -1,11 +1,10 @@
-import * as Tone from "tone";
-import classNames from "classnames";
-import { List, Range } from "immutable";
-import './Guitar.css';
+// The Guitar
+// By: Mark Kim
 
 // project imports
 import { Instrument, InstrumentProps } from "../Instruments";
 import Oscillators from './Oscillators';
+import './mkim797.css';
 
 function Guitar({ synth, setSynth }: InstrumentProps): JSX.Element {
   const playNote = (note: string, octave: number) => {

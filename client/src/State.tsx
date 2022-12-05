@@ -5,10 +5,10 @@ import { List, Map } from 'immutable';
 import { PianoInstrument } from './instruments/Piano';
 import { DrumInstrument } from './instruments/Drum';
 import { HarpInstrument } from './instruments/Harp';
-import { GuitarInstrument } from './instruments/Guitar';
+import { GuitarInstrument } from './instruments/mkim797';
 import { WaveformVisualizer } from './visualizers/Waveform';
 import { Jiji14Visualizer } from './visualizers/Jiji14';
-import { terrainVisualizer } from './visualizers/mark';
+import { terrainVisualizer } from './visualizers/mkim797';
 import { marshmallowVisualizer } from './visualizers/marshmallow';
 import { barGraphVisualizer } from './visualizers/arianna-y';
 
