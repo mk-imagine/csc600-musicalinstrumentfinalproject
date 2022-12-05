@@ -16,4 +16,8 @@ VALUES
 	A4,1.5 A4,8 C5,8 D5,8 Bb4,16 Bb4,16 C5,8 D5,8 D5,8 C5,8 A4,8 G4,8 F4,4 D5,8 
 	D5,8 E5,8 F5,8 E5,8', 'Siegler, John; Loeffler, John', '1998', 'soundtrack'),
 (4, 'All I Want For Christmas Is You', 'G3 B3 D4 Gb4 E4 D4 A4 G4 G4 Gb4 G4 Gb4
-	G4 Gb4 D4 D4 C4 E4 G4 A4 Bb4 A4 G4 E4 C4 Eb4 G4 A4 Bb4 A4 F4 Db4', 'Carey, Mariah; Afanasieff, Walter', '1994', 'pop');
+	G4 Gb4 D4 D4 C4 E4 G4 A4 Bb4 A4 G4 E4 C4 Eb4 G4 A4 Bb4 A4 F4 Db4', 'Carey, Mariah; Afanasieff, Walter', '1994', 'pop'),
+(5, 'Merry Go Round of Life', 'Bb3 C3 Bb3 C3 Bb3 C3 A3 Bb3 A3 Bb3 A3 Bb3 G3 A3 
+	G3 A3 G3 A3 A3 G3 F#3 F#3 F#3 D3 A3 D F#3 D3 D3 G3 Bb3 D3 D3 C3 Bb3 A3 Bb3 G3 
+	Bb3 D3 G3 G3 G3 F3 Eb3 F3 A3 D3 F3 A3 G3 F3 E3 F3 G3 F3 E3 D3 C3 Bb3 C3 D3 C3 
+	G3 A3 A3', 'Hisaishi, Joe', '2004', 'contemporary/classical');
